@@ -1,0 +1,77 @@
+@page "/"
+@using Data
+@using Newtonsoft.Json
+@inject HttpClient Http
+
+<h1>Board Transactions</h1>
+
+@if (authorisations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<p>
+   Board Name: <input @bind="SearchText" />  @SearchText
+</p>
+    <button class="btn btn-primary" @onclick="Search"> Search </button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>BoardName</th>
+                             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var boardData in filteredTransactions)
+            {
+                <tr>
+                    <td>@boardData.</td>
+                                       
+                </tr>
+            }
+        </tbody>
+    </table>
+<p>
+    Free Text: <input @bind="FreeText" @onblur="SearchFreeText" />
+    @FreeText
+</p>    
+}
+@code {
+   
+   private AuthorisationRequest[] originalTransactions;
+    private AuthorisationRequest[] filteredTransactions;
+    private string SearchText = "";
+    private string FreeText = "";
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await Http.GetAsync("http://localhost:7071/api/BCSC3AuthSupport");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        originalTransactions = JsonConvert.DeserializeObject<List<BoardTransaction>>(responseContent).ToArray();
+        filteredTransactions = originalTransactions; 
+    }  
+
+    private void Search()
+    {
+        filteredTransactions = originalTransactions;
+
+        if (SearchText != "")
+        {
+         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(SearchText)).ToArray();
+        }
+    }
+
+    private void SearchFreeText() //string value
+    {
+       // FreeText = value;
+        filteredTransactions = originalTransactions;
+
+        if (FreeText != "")
+        {
+         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
+         )
+         .ToArray();
+        }
+    }
+}
