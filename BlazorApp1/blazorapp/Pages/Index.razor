@@ -1,7 +1,81 @@
 ﻿@page "/"
+@using BlazorApp.Data
+@using Newtonsoft.Json
+@inject HttpClient Http
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+Welcome to your new app - Mr.Saravana.
+<br/>
+<h1>Board Transactions</h1>
+@if (filteredTransactions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<p>
+   Board Name: <input @bind="SearchText" />  @SearchText
+</p>
+    <button class="btn btn-primary" @onclick="Search"> Search </button>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>BoardName</th>
+                             
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var boardData in filteredTransactions)
+            {
+                <tr>
+                    <td>@boardData.BoardName</td>
+                                       
+                </tr>
+            }
+        </tbody>
+    </table>
+<p>
+    Free Text: <input @bind="FreeText" @onblur="SearchFreeText" />
+    @FreeText
+</p>    
+}
+@code {
+   
+   private BoardTransaction[] originalTransactions;
+    private BoardTransaction[] filteredTransactions;
+    private string SearchText = "";
+    private string FreeText = "";
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await Http.GetAsync("https://burglarboarddata.azurewebsites.net/api/BoardData?code=rMbVg6gfT7naJ7w4aQFajpzaHQxJztZWW7ESQguCIW52SaGytxGkqg==");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        originalTransactions = JsonConvert.DeserializeObject<List<BoardTransaction>>(responseContent).ToArray();
+        filteredTransactions = originalTransactions; 
+    }  
+
+    private void Search()
+    {
+        filteredTransactions = originalTransactions;
+
+        if (SearchText != "")
+        {
+         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(SearchText)).ToArray();
+        }
+    }
+
+    private void SearchFreeText() //string value
+    {
+       // FreeText = value;
+        filteredTransactions = originalTransactions;
+
+        if (FreeText != "")
+        {
+         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
+         )
+         .ToArray();
+        }
+    }
+}
+

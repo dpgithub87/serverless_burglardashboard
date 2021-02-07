@@ -10,12 +10,14 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using BlazorApp.Data;
 using System.Collections.Generic;
+using Microsoft.Azure.Cosmos.Table;
+using FunctionApp2;
 
 namespace Serverless.BurglarAlarm
 {
     public static class BoardData
     {
-        [FunctionName("BCSC3AuthSupport")]
+        [FunctionName("BoardData")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
@@ -43,7 +45,46 @@ namespace Serverless.BurglarAlarm
 
             lstBoardTransaction.Add(new BoardTransaction(){BoardName = "tstName"}            
             );
-            return lstBoardTransaction;
+            Task<List<BoardTransaction>> _lstBoardTransactions = GetLinks("Board1");
+            _lstBoardTransactions.Wait();
+
+            return _lstBoardTransactions.Result;
+        }
+
+        public static async Task<List<BoardTransaction>> GetLinks(string _hostCode)
+        {
+            List<BoardTransaction> _records = new List<BoardTransaction>();
+
+            CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials("saburglaralarm", "35f5xbui4s9ZrwzKhT7XD4J7b96xa+YzkZt9ScS2szv7FGV1LP0yhtmurQPpQT2ZQbQh3PSoqS8lKWR9tMHw6w=="), true);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+
+            CloudTable _linkTable = tableClient.GetTableReference("BoardTransactions");
+
+            _linkTable.CreateIfNotExists();
+
+            // Construct the query operation for all customer entities where PartitionKey="Smith".
+            TableQuery<BoardTransactionEntity> query = new TableQuery<BoardTransactionEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, _hostCode));
+
+            // Print the fields for each customer.
+            TableContinuationToken token = null;
+            do
+            {
+                TableQuerySegment<BoardTransactionEntity> resultSegment = await _linkTable.ExecuteQuerySegmentedAsync(query, token);
+                token = resultSegment.ContinuationToken;
+
+                foreach (var entity in resultSegment.Results)
+                {
+                    BoardTransaction _summary = new BoardTransaction
+                    {
+                       BoardName = entity.PartitionKey
+                    };
+
+                    _records.Add(_summary);
+                }
+            } while (token != null);
+
+
+            return _records;
         }
     }
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\serverless_burglaralarm\\BlazorApp1\\blazorapp\\blazorapp.csproj": {}
+    "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\serverless_burglaralarm\\BlazorApp1\\blazorapp\\blazorapp.csproj": {
+    "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\serverless_burglaralarm\\BlazorApp1\\blazorapp\\blazorapp.csproj",
+        "projectUniqueName": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
         "projectName": "blazorapp",
-        "projectPath": "E:\\Projects\\serverless_burglaralarm\\BlazorApp1\\blazorapp\\blazorapp.csproj",
+        "projectPath": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
         "packagesPath": "C:\\Users\\dhand\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\serverless_burglaralarm\\BlazorApp1\\blazorapp\\obj\\",
+        "outputPath": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -27,9 +27,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://pkgs.dev.azure.com/jsainsburys-nda/_packaging/otter/nuget/v3/index.json": {},
-          "https://www.myget.org/F/sainsburys/auth/e9ccaaa0-37ba-4fc1-87c9-e20ef80ec84d/api/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
@@ -55,6 +53,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.2, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "System.Net.Http.Json": {
               "target": "Package",
