@@ -1,16 +1,47 @@
 @page "/counter"
+@using Microsoft.AspNetCore.SignalR.Client
+@using BlazorApp.Data
 
 <h1>Counter</h1>
 
+<h2> @hubConnection.State </h2>
+
 <p>Current count: @currentCount</p>
+
+@foreach (var item in quotes)
+{
+    <p> @item.BoardName </p>
+}
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
     private int currentCount = 0;
 
+private HubConnection hubConnection;
+ private List<BoardTransaction> quotes = new List<BoardTransaction>();
+
     private void IncrementCount()
     {
         currentCount++;
     }
+
+ protected override async Task OnInitializedAsync()
+    {
+        hubConnection = new HubConnectionBuilder().WithUrl("http://localhost:7071/api").Build();
+        hubConnection.On<BoardTransaction>("newMessage", (incomingQuote) =>
+            {
+
+                quotes.Add(incomingQuote);
+                StateHasChanged();
+
+            }
+                         
+            );
+
+            await hubConnection.StartAsync();
+        
+    }
+    public bool IsConnected => hubConnection.State == HubConnectionState.Connected;
+    
 }
