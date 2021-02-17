@@ -12,6 +12,7 @@ using BlazorApp.Data;
 using System.Collections.Generic;
 using Microsoft.Azure.Cosmos.Table;
 using FunctionApp2;
+using Microsoft.Azure.WebJobs.Extensions.SignalRService;
 
 namespace Serverless.BurglarAlarm
 {
@@ -88,6 +89,29 @@ namespace Serverless.BurglarAlarm
 
 
             return _records;
+        }
+
+
+
+        [FunctionName("negotiate")]
+        public static SignalRConnectionInfo GetSignalRInfo(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req,
+           [SignalRConnectionInfo(HubName = "chat")] SignalRConnectionInfo connectionInfo)
+        {
+            return connectionInfo;
+        }
+
+        [FunctionName("messages")]
+        public static Task SendMessage(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post")] object message,
+            [SignalR(HubName = "chat")] IAsyncCollector<SignalRMessage> signalRMessages)
+        {
+            return signalRMessages.AddAsync(
+                new SignalRMessage
+                {
+                    Target = "newMessage",
+                    Arguments = new[] { message }
+                });
         }
     }
 }
