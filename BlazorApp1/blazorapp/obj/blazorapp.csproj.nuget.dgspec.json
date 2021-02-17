@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {}
+    "K:\\Work\\Github\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {}
   },
   "projects": {
-    "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {
+    "K:\\Work\\Github\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
+        "projectUniqueName": "K:\\Work\\Github\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
         "projectName": "blazorapp",
-        "projectPath": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
-        "packagesPath": "C:\\Users\\dhand\\.nuget\\packages\\",
-        "outputPath": "E:\\Projects\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\obj\\",
+        "projectPath": "K:\\Work\\Github\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\blazorapp.csproj",
+        "packagesPath": "C:\\Users\\sarav\\.nuget\\packages\\",
+        "outputPath": "K:\\Work\\Github\\serverless_burglardashboard\\BlazorApp1\\blazorapp\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\dhand\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\sarav\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
