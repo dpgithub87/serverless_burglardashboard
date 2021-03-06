@@ -3,62 +3,76 @@
 @using Newtonsoft.Json
 @inject HttpClient Http
 
-<h1>Hello, Rajeswaran Illam!</h1>
 
-Welcome to your new app - Mr.Saravana Prasad
+<h1>Burglar Alarm</h1>
+
+
 <br/>
-<h1>Board Transactions</h1>
+<h1>Live Updates</h1>
 @if (filteredTransactions == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
-<p>
-   Board Name: <input @bind="SearchText" />  @SearchText
+<p> <br>
+<br>
 </p>
-    <button class="btn btn-primary" @onclick="Search"> Search </button>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>BoardName</th>
-                 <th>Zone 2</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var boardData in filteredTransactions)
-            {
-                <tr>
-                    <td>@boardData.BoardName</td>
-                     <td>@boardData.Zone2</td>                  
-                </tr>
-            }
-        </tbody>
-    </table>
-<p>
-    Free Text: <input @bind="FreeText" @onblur="SearchFreeText" />
-    @FreeText
-</p>    
+<div class="container">
+    @foreach (var boardData in filteredTransactions)
+     {
+
+	<div class="led-box">
+    <div class= "@zone1class" ></div> 
+    <p> @boardData.zone1DN </p>
+    </div>
+    	<div class="led-box">
+    <div class= "@zone2class" ></div> 
+    <p> @boardData.zone2DN </p>
+    </div>
+    	<div class="led-box">
+    <div class= "@zone3class" ></div> 
+    <p> @boardData.zone3DN </p>
+    </div>
+    	<div class="led-box">
+    <div class= "@zone4class" ></div> 
+    <p> @boardData.zone4DN </p>
+    </div>
+    }
+</div>
+
+<p> <br>
+<br>
+</p>
 }
 @code {
    
    private BoardTransaction[] originalTransactions;
     private BoardTransaction[] filteredTransactions;
-    private string SearchText = "";
-    private string FreeText = "";
+
+    private string zone1class = "";
+    private string zone2class = "";
+    private string zone3class = "";
+    private string zone4class = "";
+
+    
     protected override async Task OnInitializedAsync()
     {
         var response = await Http.GetFromJsonAsync<BoardTransaction[]>("sample-data/Sample_BoardTransaction.json");
         originalTransactions = response;
         filteredTransactions = originalTransactions;
+        zone1class = filteredTransactions.FirstOrDefault().Zone1 == true ? "led-green" : "led-red";
+        zone2class = filteredTransactions.FirstOrDefault().Zone2 == true ? "led-green" : "led-red";
+        zone3class = filteredTransactions.FirstOrDefault().Zone3 == true ? "led-green" : "led-red";
+        zone4class = filteredTransactions.FirstOrDefault().Zone4 == true ? "led-green" : "led-red";
         //HttpResponseMessage response = await Http.GetAsync("https://burglarboarddata.azurewebsites.net/api/BoardData?code=rMbVg6gfT7naJ7w4aQFajpzaHQxJztZWW7ESQguCIW52SaGytxGkqg==");
         //var responseContent = await response.Content.ReadAsStringAsync();
         //originalTransactions = JsonConvert.DeserializeObject<List<BoardTransaction>>(response).ToArray();
         //filteredTransactions = originalTransactions; 
     }  
 
-    private void Search()
+    @* private void Search()
     {
         filteredTransactions = originalTransactions;
 
@@ -66,19 +80,19 @@ else
         {
          filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(SearchText)).ToArray();
         }
-    }
-
-    private void SearchFreeText() //string value
-    {
-       // FreeText = value;
-        filteredTransactions = originalTransactions;
-
-        if (FreeText != "")
-        {
-         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
-         )
-         .ToArray();
-        }
-    }
+    } *@
+    
+   // private void SearchFreeText() //string value
+   // {
+   // FreeText = value;
+   //    filteredTransactions = originalTransactions;
+   //
+   //    if (FreeText != "")
+   //    {
+   //     filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
+   //     )
+   //     .ToArray();
+   //    }
+   //} 
 }
 

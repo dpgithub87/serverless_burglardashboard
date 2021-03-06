@@ -105,46 +105,53 @@ using Newtonsoft.Json;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "K:\Work\Github\serverless_burglardashboard\BlazorApp1\blazorapp\Pages\Index.razor"
+#line 49 "K:\Work\Github\serverless_burglardashboard\BlazorApp1\blazorapp\Pages\Index.razor"
        
    
    private BoardTransaction[] originalTransactions;
     private BoardTransaction[] filteredTransactions;
-    private string SearchText = "";
-    private string FreeText = "";
+
+    private string zone1class = "";
+    private string zone2class = "";
+    private string zone3class = "";
+    private string zone4class = "";
+
+    
     protected override async Task OnInitializedAsync()
     {
         var response = await Http.GetFromJsonAsync<BoardTransaction[]>("sample-data/Sample_BoardTransaction.json");
-        originalTransactions = response;
         filteredTransactions = originalTransactions;
+        zone1class = filteredTransactions.FirstOrDefault().Zone1 == true ? "led-green" : "led-red";
+        zone2class = filteredTransactions.FirstOrDefault().Zone2 == true ? "led-green" : "led-red";
+        zone3class = filteredTransactions.FirstOrDefault().Zone3 == true ? "led-green" : "led-red";
+        zone4class = filteredTransactions.FirstOrDefault().Zone4 == true ? "led-green" : "led-red";
         //HttpResponseMessage response = await Http.GetAsync("https://burglarboarddata.azurewebsites.net/api/BoardData?code=rMbVg6gfT7naJ7w4aQFajpzaHQxJztZWW7ESQguCIW52SaGytxGkqg==");
         //var responseContent = await response.Content.ReadAsStringAsync();
         //originalTransactions = JsonConvert.DeserializeObject<List<BoardTransaction>>(response).ToArray();
         //filteredTransactions = originalTransactions; 
     }  
 
-    private void Search()
-    {
-        filteredTransactions = originalTransactions;
+    
 
-        if (SearchText != "")
-        {
-         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(SearchText)).ToArray();
-        }
-    }
-
-    private void SearchFreeText() //string value
-    {
-       // FreeText = value;
-        filteredTransactions = originalTransactions;
-
-        if (FreeText != "")
-        {
-         filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
-         )
-         .ToArray();
-        }
-    }
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 82 "K:\Work\Github\serverless_burglardashboard\BlazorApp1\blazorapp\Pages\Index.razor"
+        
+    
+   // private void SearchFreeText() //string value
+   // {
+   // FreeText = value;
+   //    filteredTransactions = originalTransactions;
+   //
+   //    if (FreeText != "")
+   //    {
+   //     filteredTransactions = originalTransactions.Where(x => x.BoardName.Contains(FreeText)
+   //     )
+   //     .ToArray();
+   //    }
+   //} 
 
 #line default
 #line hidden

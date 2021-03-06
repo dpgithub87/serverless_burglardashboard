@@ -1,32 +1,16 @@
 [
-    {
-       "id":0,
-       "boardName":"Board1",
-       "zone1":"true",
-       "zone2":true,
-       "zone3":null,
-       "zone4":null,
-       "sourceCreatedDateTime":"0001-01-01T00:00:00",
-       "createdDateTime":"0001-01-01T00:00:00"
-    },
-    {
-        "id":0,
-        "boardName":"Board2",
-        "zone1":"true",
-        "zone2":false,
-        "zone3":null,
-        "zone4":null,
-        "sourceCreatedDateTime":"0001-01-01T00:00:00",
-        "createdDateTime":"0001-01-01T00:00:00"
-     },
-     {
-        "id":0,
-        "boardName":"Board3",
-        "zone1":"test",
-        "zone2":true,
-        "zone3":null,
-        "zone4":null,
-        "sourceCreatedDateTime":"0001-01-01T00:00:00",
-        "createdDateTime":"0001-01-01T00:00:00"
-     }
- ]
+   {
+      "id":0,
+      "boardName":"Board1",
+      "zone1":false,
+      "zone1DN":"Zone 1",
+      "zone2":false,
+      "zone2DN":"Zone 2",
+      "zone3":true,
+      "zone3DN":"Zone 3",
+      "zone4":false,
+      "zone4DN":"Zone 4",
+      "sourceCreatedDateTime":"0001-01-01T00:00:00",
+      "createdDateTime":"0001-01-01T00:00:00"
+   }
+]
