@@ -1,5 +1,5 @@
-# serverless_burgeralarm
-Use of Azure serverless architecture to create dashboard for burger alarm.
+# serverless_burglaralarm
+Use of Azure serverless architecture to create a dashboard for burglar alarm.
 
 UI - Blazor Webassembly (Standalone App)
 Azure Function - C#
